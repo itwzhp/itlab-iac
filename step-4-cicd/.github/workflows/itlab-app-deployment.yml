@@ -1,0 +1,75 @@
+name: Deploy itlab-app
+
+# Configures this workflow to run every time a change is pushed to the branch called `main`.
+on:
+  # push:
+  #   branches: ['main']
+  #   # don't rebuild image if someone only edited unrelated files
+  #   paths-ignore:
+  #     - 'README.md'
+  #     - '.gitignore'
+  # You can run this action manually
+  workflow_dispatch:
+
+env:
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+jobs:
+  itlab-cicd:
+    name: Deploy 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.13.5"
+
+      - name: Login to azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # First run without backend.tf present
+      - name: Terraform Init
+        run: terraform -chdir=terraform init
+
+      # Create resources
+      - name: Terraform Plan
+        run: terraform -chdir=terraform plan -out tf-plan 
+
+      # Create resources
+      - name: Terraform Apply
+        run: terraform -chdir=terraform apply -auto-approve tf-plan
+
+      # Now initialize with backend.tf present, it will save tfstate to remote backend
+      - name: Terraform Init with Backend
+        run: terraform -chdir=terraform init -migrate-state
+
+      - name: "[ANSIBLE] Run confiigure-os playbook"
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: configure-os.yml
+          # Optional, directory where playbooks live
+          directory: ${{ github.workspace }}/ansible/playbook/
+          key: ${{ secrets.SSH_KEY }}
+          requirements: ${{ github.workspace }}/collections/requirements.yml
+          vault_password: ${{secrets.ANSIBLE_VAULT_PASSWORD}}
+          # Optional, additional flags to pass to ansible-playbook
+          options: |
+            --inventory ${{ github.workspace }}/ansible/playbook/inventory/hosts.ini
+
+      - name: "[ANSIBLE] Run deploy-wordpress playbook"
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: deploy-wordpress.yml
+          # Optional, directory where playbooks live
+          directory: ${{ github.workspace }}/ansible/playbook/
+          key: ${{ secrets.SSH_KEY }}
+          requirements: ${{ github.workspace }}/collections/requirements.yml
+          vault_password: ${{secrets.ANSIBLE_VAULT_PASSWORD}}
+          # Optional, additional flags to pass to ansible-playbook
+          options: |
+            --inventory ${{ github.workspace }}/ansible/playbook/inventory/hosts.ini

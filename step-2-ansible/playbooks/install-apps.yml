@@ -1,0 +1,27 @@
+---
+- name: Install system tools
+  hosts: localhost # tylko nasz lokalny komputer
+  connection: local # połączenie lokalne, bez SSH
+  become: yes # uzyskaj uprawnienia roota
+  gather_facts: yes # zbierz fakty o systemie - przydatne do warunkowania zadań
+
+  tasks:
+    - name: Update package cache
+      ansible.builtin.apt:
+        update_cache: yes # zaktualizuj cache pakietów (apt update)
+
+    - name: Install applications # zainstaluj aplikacje systemowe (apt install atop htop i tak dalej)
+      ansible.builtin.apt:
+        name:
+          - htop
+          - atop
+        state: present # state present oznacza, że pakiety mają być zainstalowane. Jeśli już są zainstalowane, nic się nie stanie.
+        # state: absent # state absent oznacza, że pakiety mają być odinstalowane. Jeśli nie są zainstalowane, nic się nie stanie.
+      register: install_apps_result # Zarejestruj efekt tego zadania w zmiennej install_apps_result
+
+    - name: Create index.html file
+      ansible.builtin.copy:
+        content: "Hello World!"
+        dest: ./index.html
+        mode: '0777' # Ustaw uprawnienia
+      when: install_apps_result.changed # wykonaj to zadanie tylko jeśli poprzednie zadanie zmieniło coś w systemie (czyli jeśli pakiety zostały zmodyfikowane)

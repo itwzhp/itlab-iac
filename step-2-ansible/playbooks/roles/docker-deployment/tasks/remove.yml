@@ -1,0 +1,19 @@
+---
+- name: Remove docker containers on Azure hosts
+  tags:
+    - remove_deployment
+    - never
+  become: true
+  block:
+    - name: remove | Remove containers docker compose
+      community.docker.docker_compose_v2:
+        project_src: "../../step-1-docker/"
+        state: absent
+
+    - name: remove | Prune docker system without volumes
+      community.docker.docker_prune:
+        containers: true
+        images: true
+        images_filters:
+          dangling: false
+        builder_cache: true

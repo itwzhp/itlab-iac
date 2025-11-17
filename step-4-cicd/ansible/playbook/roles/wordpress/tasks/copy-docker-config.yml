@@ -1,0 +1,21 @@
+---
+- name: copy-docker-config | Copy docker templates
+  tags:
+    - config-files
+  become: true
+  block:
+    - name: copy-docker-config | Create docker containers directory {{ docker_containers_dir}}
+      ansible.builtin.file:
+        path: "{{ docker_containers_dir }}"
+        state: directory
+        mode: "0755"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: copy-docker-config | Copy docker templates to {{ docker_containers_dir }}
+      ansible.builtin.template:
+        src: "docker-compose.yml"
+        dest: "{{ docker_containers_dir }}/docker-compose.yml"
+        mode: "0755"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"

@@ -1,0 +1,6 @@
+---
+- name: Deploy docker containers on Azure hosts
+  hosts: azure # na jakiej grupie hostów chcemy użyć poniższych roli. Jeśli wpiszemy 'all', to zrobimy to na wszystkich hostach zdefiniowanych w inventory.
+  gather_facts: true
+  roles:
+    - docker-deployment # nazwa roli, którą chcemy użyć na tej grupie hostów. Znajduje się w folderze roles/docker-deployment i zacznie od pliku tasks/main.yml

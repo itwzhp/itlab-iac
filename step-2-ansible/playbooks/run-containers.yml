@@ -1,0 +1,41 @@
+---
+- name: Create index.html from template
+  hosts: localhost # tylko nasz lokalny komputer
+  connection: local # połączenie lokalne, bez SSH
+  become: yes # uzyskaj uprawnienia roota
+  gather_facts: yes # zbierz fakty o systemie - przydatne do warunkowania zadań
+
+  tasks:
+    - name: Build and pull docker compose
+      community.docker.docker_compose_v2:
+        project_src: "../../step-1-docker/"
+        build: always
+        pull: always
+        state: present
+
+    - name: Remove containers docker compose
+      community.docker.docker_compose_v2:
+        project_src: "../../step-1-docker/"
+        state: absent
+      tags:
+        - never
+        - remove_deployment
+
+    - name: Prune docker system without volumes
+      community.docker.docker_prune:
+        containers: true
+        images: true
+        images_filters:
+          dangling: false
+        builder_cache: true
+      tags:
+        - never
+        - remove_deployment
+
+    - name: Prune docker unused and anonymous volumes
+      community.docker.docker_prune:
+        volumes: true # Usuń anonimowe wolumeny
+        volumes_filters: all=1 # Usuń wszystkie anonimowe i niepodpięte wolumeny
+      tags:
+        - never
+        - remove_unused_volumes

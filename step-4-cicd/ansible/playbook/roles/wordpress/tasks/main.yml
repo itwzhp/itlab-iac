@@ -1,0 +1,7 @@
+---
+- name: Load WordPress credentials
+  ansible.builtin.include_vars: credentials.yml
+- name: Copy docker compose
+  ansible.builtin.import_tasks: copy-docker-config.yml
+- name: Start WordPress containers
+  ansible.builtin.import_tasks: start-containers.yml

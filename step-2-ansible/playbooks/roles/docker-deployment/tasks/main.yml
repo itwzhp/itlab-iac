@@ -1,0 +1,7 @@
+---
+- name: Deploy docker containers on Azure hosts
+  ansible.builtin.import_tasks: deploy.yml # importujemy taski z pliku deploy.yml
+- name: Remove docker containers on Azure hosts
+  ansible.builtin.import_tasks: remove.yml
+- name: Prune volumes on Azure hosts
+  ansible.builtin.import_tasks: prune-volumes.yml

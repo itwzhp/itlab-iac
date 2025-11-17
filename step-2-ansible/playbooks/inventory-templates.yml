@@ -1,0 +1,12 @@
+---
+- name: Create index.html from template
+  hosts: all # wszyscy z inventory
+  become: yes # uzyskaj uprawnienia roota
+  gather_facts: yes # zbierz fakty o systemie - przydatne do warunkowania zadań
+
+  tasks:
+    - name: Use template to create index.html file
+      ansible.builtin.template:
+        src: index.html.j2
+        dest: ./index.html
+        mode: '0777' # Ustaw uprawnienia

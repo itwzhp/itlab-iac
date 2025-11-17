@@ -1,0 +1,12 @@
+---
+- name: Deploy docker containers on Azure hosts
+  tags:
+    - deploy # tag przypisany do całego bloku zadań
+  become: true
+  block: # block to grupa zadań, które będą wykonywane razem
+    - name: deploy | Build and pull docker compose
+      community.docker.docker_compose_v2:
+        project_src: "../../step-1-docker/"
+        build: always
+        pull: always
+        state: present

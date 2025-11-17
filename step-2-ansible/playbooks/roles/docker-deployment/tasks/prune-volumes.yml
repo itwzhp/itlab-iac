@@ -1,0 +1,11 @@
+---
+- name: Deploy docker containers on Azure hosts
+  tags:
+    - remove_unused_volumes
+    - never
+  become: true
+  block:
+    - name: prune-volumes | Prune docker unused and anonymous volumes
+      community.docker.docker_prune:
+        volumes: true # Usuń anonimowe wolumeny
+        volumes_filters: all=1 # Usuń wszystkie anonimowe i niepodpięte wolumeny

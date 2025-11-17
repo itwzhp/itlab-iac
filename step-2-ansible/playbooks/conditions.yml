@@ -1,0 +1,21 @@
+---
+- name: Create index.html from template with conditions
+  hosts: localhost # tylko nasz lokalny komputer
+  connection: local # połączenie lokalne, bez SSH
+  become: yes # uzyskaj uprawnienia roota
+  gather_facts: yes # zbierz fakty o systemie - przydatne do warunkowania zadań
+
+  tasks:
+    - name: "DEFINED - Use template to create index.html file"
+      ansible.builtin.template:
+        src: index.html.j2
+        dest: ./index.html
+        mode: '0777' # Ustaw uprawnienia
+      when: my_variable is defined # wykonaj to zadanie tylko jeśli zmienna my_variable jest zdefiniowana
+
+    - name: "UNDEFINED - Use template to create index.html file"
+      ansible.builtin.template:
+        src: index_not_defined.html.j2
+        dest: ./index.html
+        mode: '0777' # Ustaw uprawnienia
+      when: my_variable is undefined # wykonaj to zadanie tylko jeśli zmienna my_variable nie jest zdefiniowana

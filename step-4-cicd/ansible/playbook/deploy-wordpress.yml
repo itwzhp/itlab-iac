@@ -1,0 +1,7 @@
+---
+- name: Deploy WordPress
+  hosts:
+    - all
+  gather_facts: true
+  roles:
+    - wordpress

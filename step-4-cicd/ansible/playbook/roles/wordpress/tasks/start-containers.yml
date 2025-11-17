@@ -1,0 +1,21 @@
+---
+- name: start-containers | Start docker compose
+  tags:
+    - start-containers
+    - update-images
+  become: true
+  block:
+    - name: start-containers | Build and pull docker compose
+      community.docker.docker_compose_v2:
+        project_src: "{{ docker_containers_dir }}/"
+        build: always
+        pull: always
+        state: present
+
+    - name: start-containers | Prune everything (including non-dangling images)
+      community.docker.docker_prune:
+        containers: true
+        images: true
+        images_filters:
+          dangling: false
+        builder_cache: true
