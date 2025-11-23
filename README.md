@@ -93,7 +93,7 @@ Nastepnie wybierz **Clone Git Repository** i wklej `https://github.com/itwzhp/it
 
 ## 4. Utwórz repozytorium na twoim koncie GitHub
 
-Utwórz nowe **prywatne** repozytorium na twoim koncie GitHub: https://github.com/new o nazwie `itlab-iac`.
+Utwórz nowe **prywatne** repozytorium na twoim koncie GitHub: https://github.com/new o nazwie `my-itlab-iac`.
 
 Otwórz nowe okno VSCode kliknij w lewym dolnym rogu **><** i z listy, która się pojawi wybierz **Connect to WSL**.
 

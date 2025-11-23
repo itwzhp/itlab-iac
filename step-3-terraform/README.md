@@ -43,8 +43,7 @@ az login
 
 Następnie w pliku `providers.tf` podmień `subscription_id` na swoje, a w pliku `variables.tf` podmień:
 
-1. `allowed_ip` na swoje publiczne ip. Możesz je sprawdzić komendą `curl https://ipinfo.io/ip`. Pamiętaj aby zostawić na końcu `/32`.
-2. `ssh_pub_key` na wynik komendy `cat ~/.ssh/id_itlab.pub`.
+1. `ssh_pub_key` na wynik komendy `cat ~/.ssh/id_itlab.pub`.
 
 ```bash
 terraform plan -out tf-plan
@@ -58,7 +57,8 @@ W outpucie dostaniesz informację co zostanie zmienione w twoim środowisku i ja
 >
 > 1. Hasła
 > 2. Tokeny
-> 3. Różne ID ze środowiska chmurowego typu: application id, tenant id, subscription id itd.. Są one unikalne i wskazują bezpośrednio na twoje zasoby.
+> 3. Prywatne klucze SSH (te bez końcówki `.pub`)
+> 4. Różne ID ze środowiska chmurowego typu: application id, tenant id, subscription id itd.. Są one unikalne i wskazują bezpośrednio na twoje zasoby.
 >
 > Takie rzeczy przetrzymuje się w specjalnych vaultach takich jak Azure Vault, Hashicorp Vault, Ansible Vault lub Action Secrets w GitHub.
 
@@ -90,7 +90,7 @@ Jeśli go nie ma, to wszystko jest w porządku.
 
 Plik `terraform.tfstate`, zawiera aktualny stan waszego środowiska, jeśli wykonamy znowu `terraform plan` to zobaczycie, że nic nie będzie do zmiany.
 
-Zmieńcie teraz nazwę plików `terraform.tfstate` oraz `terraform.tfstate.backup` i dodajcie na początku prefix `bak.`. Wykonajcie ponownie komendę `terraform plan`, co się stało?
+Zmieńcie teraz nazwę plików `terraform.tfstate` oraz `terraform.tfstate.backup` i dodajcie im na początku prefix `bak.`. Wykonajcie ponownie komendę `terraform plan`, co się stało?
 
 Jakimś cudem terraform ponownie chce wszystko utworzyć. Jeśli kiedykolwiek stracicie plik `terraform.state`, to jego odzyskanie przy dużych środowiskach może być karkołomne: https://www.sharepointeurope.com/recovering-from-a-deleted-terraform-state-file/
 
@@ -98,7 +98,8 @@ Jakimś cudem terraform ponownie chce wszystko utworzyć. Jeśli kiedykolwiek st
 > **NIGDY nie commituj pliku `terraform.tfstate` do repozytorium Git!**
 > Plik `terraform.tfstate` zawiera wrażliwe dane o całym twoim środowisku.
 >
-> Przechowuj go na zdalnym backendzie (S3, Azure Blob Storage, Terraform Cloud) z włączonym szyfrowaniem i wersjonowaniem.
+> Przechowuj go na zdalnym backendzie, najlepiej na storage'u obiektowym takim jak AWS S3, Azure Blob Storage, Terraform Cloud z włączonym szyfrowaniem i wersjonowaniem.
+> Czym jest storage obiektowy i jak różni się od zwykłych dysków w waszych laptopach: https://www.youtube.com/watch?v=dEcQK4-pqiw
 
 My użyjemy Azure Blob Storage jako backendu dla terraform. W folderze `step-3-terraform` znajduje się plik `backend.tf`, skopiuj go do folderu `terraform`.
 
@@ -112,7 +113,7 @@ terraform init -migrate-state
 
 Mamy problem, nasze konto azure nie ma autoryzacji do zapisywania danych na naszym Blobie. Musimy znaleźć plik z danymi konta Service Principal lub przypisać sobie autoryzację.
 
-Przelogujmy się na nasze konto SP komendą i wykonajmy jeszcze raz migrację oraz planning:
+Przelogujmy się na nasze konto SP poniższą komendą i wykonajmy jeszcze raz migrację oraz planning:
 
 ```bash
 az login --service-principal --username APP_ID --password CLIENT_SECRET --tenant TENANT_ID
@@ -125,7 +126,7 @@ terraform init -migrate-state
 terraform plan
 ```
 
-Efektem powinno być: `No changes. Your infrastructure matches the configuration.` po wykonaniu planningu.
+Efektem powinno być: `No changes. Your infrastructure matches the configuration.` po wykonaniu planowania.
 
 ## Destroy
 
