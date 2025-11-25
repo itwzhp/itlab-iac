@@ -231,6 +231,8 @@ Do nich odwołujemy się używają słownika `env`, czyli na przykład: `${{ env
 
 Przejdź do swojego repozytorium na github z górnego menu wybierz **Actions > Destroy itlab environment**, a następnie **Run workflow**.
 
+### Azure
+
 Usuń konto Service Principal z **Azure**:
 
 1. Przejdź na https://portal.azure i w szukajce znajdź **Subscriptions**
@@ -238,3 +240,9 @@ Usuń konto Service Principal z **Azure**:
 3. Wybierz **Access control (IAM)**
 4. Wybierz **Role Assignments**
 5. Zaznacz obie role `terraform-sp` i u góry wybierz **Delete**
+
+Usuń Resource Groups:
+
+1. Przejdź na https://portal.azure i w szukajce znajdź **Resource Groups**
+2. Kliknij w **itlab** na liście i wybierz u góry **Delete resource group**. Jeśli nie masz takiej grupy, to przejdź do następnego kroku.
+3. Kliknij w **itlab-rg** na liście i wybierz u góry **Delete resource group**.
