@@ -20,6 +20,8 @@ Poszczególne moduły (stepy) w tym repozytorium mają za zadanie przybliżyć c
 - automatyzacją stawiania całej infrastruktury w chmurze - **terraform**
 - CI/CD, czyli automatyzacją wszystkich powyższych elementów tak aby na koniec dostać skonfigurowane środowisko bez kiwnięcia palcem - **GitHub Actions**
 
+To wszystko ma za zadanie pokazać Ci możliwości. Jeśli po przejściu stepów będziesz czuł niedosyt to spojrzyj do pliku `README.md` w folderze `polecane-szkolenia`.
+
 ## 0. Przygotuj siebie
 
 Koncepcje wykorzystywane w tym szkoleniu wymagają od Ciebie znajomości:
