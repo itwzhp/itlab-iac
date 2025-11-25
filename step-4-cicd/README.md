@@ -230,3 +230,11 @@ Do nich odwołujemy się używają słownika `env`, czyli na przykład: `${{ env
 ## Sprzątanie
 
 Przejdź do swojego repozytorium na github z górnego menu wybierz **Actions > Destroy itlab environment**, a następnie **Run workflow**.
+
+Usuń konto Service Principal z **Azure**:
+
+1. Przejdź na https://portal.azure i w szukajce znajdź **Subscriptions**
+2. Wybierz swoją subskrypcję
+3. Wybierz **Access control (IAM)**
+4. Wybierz **Role Assignments**
+5. Zaznacz obie role `terraform-sp` i u góry wybierz **Delete**

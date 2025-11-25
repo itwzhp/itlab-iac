@@ -1,6 +1,8 @@
 # Instrukcje
 
 - [Instrukcje](#instrukcje)
+  - [Opis](#opis)
+  - [0. Przygotuj siebie](#0-przygotuj-siebie)
   - [1. Przygotuj środowisko](#1-przygotuj-środowisko)
     - [Azure](#azure)
   - [2. Step 0 - Azure Service Principal](#2-step-0---azure-service-principal)
@@ -9,9 +11,23 @@
   - [4. Utwórz repozytorium na twoim koncie GitHub](#4-utwórz-repozytorium-na-twoim-koncie-github)
     - [Przygotowanie repozytorium](#przygotowanie-repozytorium)
 
-## 1. Przygotuj środowisko
+## Opis
 
-Żeby nie tracić czasu podczas naszych krótkich zajęć wykonajcie poniższe kroki na laptopie, którego będziecie używać podczas zajęć z **Infrastruktury jako kod (IaC)**.
+Poszczególne moduły (stepy) w tym repozytorium mają za zadanie przybliżyć ci koncepcje związane z:
+
+- konteneryzacją - **docker**
+- automatyzacją konfiguracji wielu serwerów na raz - **ansible**
+- automatyzacją stawiania całej infrastruktury w chmurze - **terraform**
+- CI/CD, czyli automatyzacją wszystkich powyższych elementów tak aby na koniec dostać skonfigurowane środowisko bez kiwnięcia palcem - **GitHub Actions**
+
+## 0. Przygotuj siebie
+
+Koncepcje wykorzystywane w tym szkoleniu wymagają od Ciebie znajomości:
+
+- **Linuxa** - na poziomie średnim, nie musisz być mistrzem, ale wypadałoby wiedzieć jak poruszać się w CLI oraz jak np.: edytować w nim pliki, czy też poruszać się swobodnie po folderach. Zobacz plik `README.md` w folderze `polecane-szkolenia`.
+- **Gita** - wystarczy ci podstawowa wiedza czym jest `git` oraz znajomość prostych komend typu: `git add`, `git commit` oraz `git push`.
+
+## 1. Przygotuj środowisko
 
 1. Załóż darmowe konto **(INNE NIŻ ZHP)** na Azure (https://portal.azure) - jeśli zakładasz je pierwszy raz to dostaniesz 200$ do wykorzystania na 30 dni + pełno serwisów jest za darmo przez pierwszych 12 miesięcy.
    Jeśli już masz konto, to nie przejmuj się, wykorzystamy maksymalnie złotówkę.
