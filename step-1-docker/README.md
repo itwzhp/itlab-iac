@@ -1,17 +1,32 @@
 # Step 1 - Docker 101
 
 - [Step 1 - Docker 101](#step-1---docker-101)
+  - [Docker](#docker)
   - [Proste uruchamianie kontenerów - docker run](#proste-uruchamianie-kontenerów---docker-run)
     - [Bind](#bind)
   - [Deployment multi-kontenerowego środowiska - docker compose](#deployment-multi-kontenerowego-środowiska---docker-compose)
     - [Wolumeny](#wolumeny)
     - [Sprzątanie](#sprzątanie)
   - [Przydatne komendy](#przydatne-komendy)
-    - [docker](#docker)
+    - [docker](#docker-1)
     - [compose](#compose)
     - [logi](#logi)
 
 Będąc w głownym folderze repozytorium przejdź do folderu: `cd step-1-docker`.
+
+## Docker
+
+Docker to narzędzie, które umożliwia **konteneryzację** — sposób uruchamiania aplikacji w lekkich, odizolowanych środowiskach zwanych **kontenerami**.
+
+Jeśli znasz maszyny wirtualne, to najprościej myśleć o kontenerach jako o „lżejszych VM-kach”. Kontenery nie mają własnego systemu operacyjnego — współdzielą jądro hosta, a izolacja działa na poziomie procesów. Dzięki temu:
+
+- uruchamiają się bardzo szybko,
+- zajmują mało zasobów,
+- są powtarzalne - uruchomienie kontenera w innym systemie da taki sam rezultat.
+
+Docker pozwala pakować aplikacje wraz z ich zależnościami do obrazu, który można potem uruchamiać na dowolnym serwerze z Dockerem, niezależnie od konfiguracji hosta.
+
+Konteneryzacja upraszcza wdrażanie, skalowanie i utrzymanie aplikacji — zamiast martwić się o różnice między środowiskami, po prostu uruchamiasz ten sam kontener na środowisku testowym i produkcyjnym.
 
 ## Proste uruchamianie kontenerów - docker run
 
