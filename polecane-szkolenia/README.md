@@ -12,7 +12,7 @@ Jeśli po przejściu wszystkich stepów nadal czujesz niedosyt to polecam zajrze
 
 Część z nich jest płatna i dostępna platformie udemy. Kupujcie tylko kiedy jest promocja, która trwa tam w zasadzie non stop :) da się wszystko dorwać między 29 a 59 zł. Czasem warto włożyć kilka groszy w swój rozwój.
 
-Druga część jest dostępna YouTube za darmo.
+Druga część jest dostępna na YouTube za darmo.
 
 Pamiętaj, że najważniejsza jest praktyka i podejście **GTD (Get things Done)**. Nie musisz mieć ładnie napisanego kodu, na początku najważniejsze jest to, żeby wykonał zadanie. Później kiedy poznasz kolejne koncepcje i rozwiązania przyjdzie czas na **refactoring**.
 
@@ -50,8 +50,7 @@ Prawda jest taka, że jak zrozumiecie koncepcję idącą za terraformem i to gdz
 
 Poszerzenie wiedzy na ten temat wymaga od nas średniozaawanasowanej wiedzy czym jest `git`, a zwłaszcza czym są branche i `git flow` oraz `github flow`, czyli dwa najpopularniejsze modele zarządzania repozytorium kodu. Bez tego ciężko będzie nam zrozumieć koncepcje idące za CI/CD (Continous Integration & Continous Delivery).
 
-Wprowadzenie czym w ogóle jest GitHub Actions: https://www.youtube.com/watch?v=R8_veQiYBjI
-
-Średniozaawansowany kurs, ale są też poruszane podstawowe koncepcje: https://www.youtube.com/watch?v=Xwpi0ITkL3U
+- Wprowadzenie czym w ogóle jest GitHub Actions: https://www.youtube.com/watch?v=R8_veQiYBjI
+- Średniozaawansowany kurs, ale są też poruszane podstawowe koncepcje: https://www.youtube.com/watch?v=Xwpi0ITkL3U
 
 Polecam tutaj na początek zabawę z puszczaniem playbooków ansible przy użyciu github actions, można się wiele nauczyć. Najlepiej takich, które uruchomią nam na przykład wordpressa, albo jeśli jesteś programistą, to twój kod w kontenerze.
